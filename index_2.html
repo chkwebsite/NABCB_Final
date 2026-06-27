@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NABCB — Premium Glass (Light) Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* very light theme */
+  --bg:#eef6fb; --bg2:#e3f1ea;
+  --glass:rgba(255,255,255,.55); --glass-line:rgba(255,255,255,.85);
+  --glass-edge:rgba(70,120,150,.14);
+  /* soft pastel accents: light blue, green, yellow */
+  --blue:#3fb3e6; --blue-deep:#1f8fc7;
+  --green:#37c98a; --green-deep:#1ea96d;
+  --yellow:#f6cf4b; --yellow-deep:#e0b32a;
+  --mint:#9fe6c8; --sky:#bfe6f7;
+  --txt:#163542; --txt2:#2b5161; --mut:#5e7a87;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.1;color:var(--txt)}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:0 26px}
+
+/* animated mesh bg — soft pastel */
+.mesh{position:fixed;inset:0;z-index:-2;overflow:hidden;background:linear-gradient(160deg,#eef6fb,#e7f4ee 55%,#fdf7e3)}
+.blob{position:absolute;border-radius:50%;filter:blur(95px);opacity:.55;animation:drift 18s ease-in-out infinite}
+.b1{width:560px;height:560px;background:radial-gradient(circle,var(--blue),transparent 70%);top:-160px;left:-120px}
+.b2{width:520px;height:520px;background:radial-gradient(circle,var(--yellow),transparent 70%);top:18%;right:-160px;animation-delay:-4s;opacity:.45}
+.b3{width:500px;height:500px;background:radial-gradient(circle,var(--green),transparent 70%);bottom:-180px;left:22%;animation-delay:-8s}
+.b4{width:420px;height:420px;background:radial-gradient(circle,var(--sky),transparent 70%);bottom:8%;right:8%;opacity:.5;animation-delay:-12s}
+@keyframes drift{33%{transform:translate(60px,-50px) scale(1.1)}66%{transform:translate(-40px,40px) scale(.95)}}
+.grid-overlay{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(31,143,199,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(31,143,199,.06) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(circle at 50% 0%,#000,transparent 80%)}
+
+.concept-tag{position:fixed;top:0;left:0;z-index:1000;background:linear-gradient(90deg,var(--blue),var(--green));color:#fff;font:700 11px Sora;padding:6px 14px;letter-spacing:1px;border-bottom-right-radius:8px}
+
+.glass{background:var(--glass);border:1px solid var(--glass-edge);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 8px 30px rgba(31,90,120,.08),inset 0 1px 0 var(--glass-line)}
+.gradtext{background:linear-gradient(110deg,var(--blue-deep),var(--green-deep),var(--yellow-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;padding:14px 28px;border-radius:14px;transition:.3s;cursor:pointer;border:none;font-family:'Outfit'}
+.btn-glow{background:linear-gradient(110deg,var(--blue),var(--green));color:#fff;box-shadow:0 0 0 1px rgba(63,179,230,.35),0 12px 30px rgba(55,201,138,.4)}
+.btn-glow:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(63,179,230,.5),0 18px 42px rgba(55,201,138,.5)}
+.btn-glass{background:var(--glass);border:1px solid var(--glass-edge);color:var(--txt2);backdrop-filter:blur(14px)}
+.btn-glass:hover{border-color:var(--blue);box-shadow:0 0 22px rgba(63,179,230,.25)}
+
+/* ===== NAV ===== */
+.topnote{text-align:center;font-size:12.5px;color:var(--mut);padding:9px;border-bottom:1px solid var(--glass-edge);letter-spacing:.3px}
+.topnote b{color:var(--green-deep)}
+header{position:sticky;top:14px;z-index:100;margin:14px auto 0;max-width:1240px;padding:0 26px}
+.nav{border-radius:20px;padding:12px 18px 12px 22px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{height:44px;filter:drop-shadow(0 3px 8px rgba(31,90,120,.18))}
+.logo b{font-family:'Sora';font-size:18px;letter-spacing:1px;color:var(--txt)}
+.logo small{display:block;font-size:10px;color:var(--mut);letter-spacing:1px;font-weight:400}
+.menu{display:flex;gap:6px}
+.menu a{font-size:14.5px;font-weight:500;padding:9px 15px;border-radius:11px;color:var(--txt2);transition:.2s}
+.menu a:hover{color:var(--blue-deep);background:rgba(63,179,230,.12)}
+.navx{display:flex;gap:10px;align-items:center}
+.lang{font-size:12px;font-weight:600;color:var(--txt2);padding:8px 12px;border:1px solid var(--glass-edge);border-radius:10px;background:rgba(255,255,255,.4)}
+.hamb{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamb span{width:24px;height:2px;background:var(--txt);border-radius:2px}
+
+/* ===== HERO ===== */
+.hero{padding:90px 0 70px;text-align:center;position:relative}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:40px;font-size:13px;font-weight:500;margin-bottom:30px;color:var(--txt2)}
+.chip .pulse{width:8px;height:8px;border-radius:50%;background:var(--green-deep);box-shadow:0 0 0 0 rgba(30,169,109,.5);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(30,169,109,0)}}
+.hero h1{font-size:clamp(40px,6.5vw,82px);font-weight:800;letter-spacing:-.03em;max-width:980px;margin:0 auto}
+.hero p{font-size:19px;color:var(--mut);max-width:620px;margin:26px auto 36px}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+/* recognition logos */
+.recog{display:flex;gap:14px;justify-content:center;margin-top:54px;flex-wrap:wrap}
+.recog .r{padding:14px 22px;border-radius:16px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--mut)}
+.recog .r img{height:30px;opacity:.95}
+.recog .r b{color:var(--txt);font-family:'Sora';font-size:15px}
+
+/* floating preview panel */
+.hero-panel{margin:64px auto 0;max-width:1060px;border-radius:26px;padding:8px;position:relative}
+.hero-panel:before{content:"";position:absolute;inset:-1px;border-radius:26px;padding:1.5px;background:linear-gradient(120deg,var(--blue),transparent 40%,transparent 60%,var(--green));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.hero-slider{position:relative;border-radius:20px;overflow:hidden;height:380px}
+.hs-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease;}
+.hs-slide.active{opacity:1}
+.hs-slide img{width:100%;height:100%;object-fit:cover;border-radius:20px;display:block}
+.hs-dots{position:absolute;z-index:5;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.hs-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.85);cursor:pointer;transition:.3s;display:block}
+.hs-dots i.active{width:24px;border-radius:5px;background:linear-gradient(110deg,var(--blue),var(--green));border-color:transparent}
+.hs-arrow{position:absolute;top:50%;z-index:5;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.65);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);cursor:pointer;color:var(--txt2);font-size:16px;transition:.25s}
+.hs-arrow:hover{background:#fff;color:var(--blue-deep)}
+.hs-prev{left:14px}.hs-next{right:14px}
+.hp-tag{position:absolute;border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px}
+.hp-tag .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-size:18px}
+.hp-tag b{font-family:'Sora';font-size:20px;display:block;line-height:1;color:var(--txt)}
+.hp-tag span{font-size:12px;color:var(--mut)}
+.hp1{top:30px;left:-20px;animation:fl 6s ease-in-out infinite}
+.hp2{bottom:30px;right:-20px;animation:fl 7s ease-in-out infinite -1s}
+@keyframes fl{50%{transform:translateY(-14px)}}
+
+/* ===== SECTION ===== */
+.sec{padding:100px 0;position:relative}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 56px}
+.kick{display:inline-block;font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--blue-deep);margin-bottom:16px}
+.sec-head h2{font-size:clamp(30px,4vw,52px);font-weight:800}
+.sec-head p{color:var(--mut);margin-top:16px;font-size:17px}
+
+/* schemes - glass cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{border-radius:22px;padding:30px;transition:.35s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-8px);border-color:var(--blue);box-shadow:0 24px 50px rgba(31,90,120,.18),0 0 30px rgba(63,179,230,.18)}
+.card .glow{position:absolute;width:160px;height:160px;border-radius:50%;filter:blur(46px);opacity:.4;top:-60px;right:-40px;transition:.35s}
+.card:hover .glow{opacity:.7}
+.card .ic{width:60px;height:60px;border-radius:16px;display:grid;place-items:center;font-size:28px;margin-bottom:20px;position:relative}
+.card h3{font-size:21px;margin-bottom:8px;position:relative}
+.card .iso{display:inline-block;font-family:'Sora';font-size:12px;font-weight:600;color:var(--green-deep);background:rgba(55,201,138,.14);border:1px solid rgba(55,201,138,.3);padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.card p{font-size:14.5px;color:var(--mut);margin-bottom:18px;position:relative}
+.card a{font-weight:600;font-size:14px;color:var(--txt);display:inline-flex;gap:7px;align-items:center}
+.card a:hover{gap:11px;color:var(--blue-deep)}
+
+/* stats */
+.stats{padding:60px 0}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat{border-radius:22px;padding:36px 26px;text-align:center;position:relative;overflow:hidden}
+.stat b{font-family:'Sora';font-size:clamp(40px,4.5vw,58px);font-weight:800;display:block;line-height:1}
+.stat span{color:var(--mut);font-size:14px;margin-top:8px;display:block}
+.stat:nth-child(1) b{color:var(--blue-deep)} .stat:nth-child(2) b{color:var(--green-deep)}
+.stat:nth-child(3) b{color:var(--yellow-deep)} .stat:nth-child(4) b{color:var(--blue-deep)}
+
+/* about split */
+.about .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about-vis{position:relative;border-radius:26px;padding:8px}
+.about-vis:before{content:"";position:absolute;inset:-1px;border-radius:26px;padding:1.5px;background:linear-gradient(160deg,var(--green),transparent 50%,var(--yellow));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.about-vis img{border-radius:20px;width:100%;height:440px;object-fit:cover}
+.about h2{font-size:clamp(28px,3.6vw,46px);font-weight:800;margin-bottom:20px}
+.about p{color:var(--mut);font-size:16px;margin-bottom:20px}
+.feat{display:grid;gap:14px;margin:26px 0}
+.feat .f{display:flex;gap:14px;align-items:center;padding:14px 18px;border-radius:14px}
+.feat .f .d{width:36px;height:36px;border-radius:10px;flex:none;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;font-weight:800;font-size:12px}
+.feat .f b{font-family:'Sora';font-size:15px}
+.feat .f span{display:block;font-size:13px;color:var(--mut)}
+
+/* leadership */
+.lead-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:760px;margin:0 auto}
+.lead-card{border-radius:22px;padding:30px;text-align:center;transition:.35s;position:relative;overflow:hidden}
+.lead-card:hover{transform:translateY(-8px);border-color:var(--blue);box-shadow:0 24px 50px rgba(31,90,120,.18),0 0 30px rgba(63,179,230,.18)}
+.lead-card .glow{position:absolute;width:160px;height:160px;border-radius:50%;filter:blur(46px);opacity:.35;top:-60px;right:-40px;transition:.35s}
+.lead-card:hover .glow{opacity:.65}
+.lead-pic{width:118px;height:118px;border-radius:50%;margin:0 auto 18px;padding:4px;position:relative;background:linear-gradient(135deg,var(--blue),var(--green))}
+.lead-pic img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #fff}
+.lead-card h3{font-size:19px;margin-bottom:4px;position:relative}
+.lead-card .role{display:inline-block;font-family:'Sora';font-size:12px;font-weight:600;color:var(--blue-deep);background:rgba(63,179,230,.14);border:1px solid rgba(63,179,230,.3);padding:4px 14px;border-radius:20px;position:relative}
+
+/* updates */
+.up-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:22px}
+.up-panel{border-radius:22px;padding:30px}
+.up-panel h3{font-size:20px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.up-panel h3 .tag{font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;background:linear-gradient(110deg,var(--blue),var(--green));color:#fff;font-family:'Sora'}
+.feed li{list-style:none;padding:15px 0;border-bottom:1px solid var(--glass-edge);display:flex;gap:14px;align-items:flex-start;transition:.2s}
+.feed li:last-child{border:none}
+.feed li:hover{padding-left:8px}
+.feed .dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--green);margin-top:7px;box-shadow:0 0 8px rgba(55,201,138,.7)}
+.feed .dot.v{background:var(--yellow-deep);box-shadow:0 0 8px rgba(224,179,42,.7)}
+.feed .t{font-size:14.5px;color:var(--txt2)}
+.feed .t small{display:block;color:var(--blue-deep);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+
+/* partners slider */
+.partners{padding:70px 0;text-align:center}
+.p-slider{margin-top:34px;position:relative;overflow:hidden}
+.p-slider:before,.p-slider:after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
+.p-slider:before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.p-slider:after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.p-track{display:flex;gap:50px;align-items:center;width:max-content;animation:scrollx 32s linear infinite}
+.p-track:hover{animation-play-state:paused}
+.p-track .pcard{flex:none;display:flex;align-items:center;justify-content:center;height:74px;padding:0 18px}
+.p-track img{height:42px;max-width:140px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.6;transition:.3s}
+.p-track img:hover{filter:none;opacity:1;transform:translateY(-2px)}
+@keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* cta */
+.cta{padding:40px 0 110px}
+.cta-box{border-radius:30px;padding:70px 40px;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(191,230,247,.5),rgba(159,230,200,.45),rgba(246,207,75,.3))}
+.cta-box:before{content:"";position:absolute;inset:-1px;border-radius:30px;padding:1.5px;background:linear-gradient(120deg,var(--blue),var(--green),var(--yellow));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.cta-box h2{font-size:clamp(30px,4vw,52px);font-weight:800}
+.cta-box p{color:var(--txt2);max-width:560px;margin:18px auto 32px;font-size:18px}
+
+/* footer */
+footer{border-top:1px solid var(--glass-edge);padding:70px 0 0;background:linear-gradient(180deg,transparent,rgba(255,255,255,.5))}
+.fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:48px;border-bottom:1px solid var(--glass-edge)}
+.flogo img{height:50px;margin-bottom:18px}
+footer h4{font-family:'Sora';font-size:15px;margin-bottom:18px;color:var(--txt)}
+footer p{font-size:14px;color:var(--mut);margin-bottom:10px}
+footer a{display:block;font-size:14px;color:var(--mut);padding:6px 0}
+footer a:hover{color:var(--blue-deep)}
+.soc{display:flex;gap:10px;margin-top:16px}
+.soc a{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:var(--txt2);border:1px solid var(--glass-edge);background:rgba(255,255,255,.5)}
+.soc a:hover{border-color:var(--blue);color:var(--blue-deep);box-shadow:0 0 18px rgba(63,179,230,.25)}
+.fbot{display:flex;justify-content:space-between;padding:22px 0;font-size:13px;color:var(--mut);flex-wrap:wrap;gap:10px}
+
+/* fab */
+.fab{position:fixed;right:22px;bottom:22px;z-index:200;display:flex;flex-direction:column;gap:12px}
+.fab a{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:22px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--green));box-shadow:0 10px 26px rgba(55,201,138,.45)}
+
+@media(max-width:980px){
+  .cards{grid-template-columns:1fr 1fr}.stat-grid{grid-template-columns:1fr 1fr}
+  .about .grid,.up-grid{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr 1fr}
+  .menu,.lang{display:none}.hamb{display:flex}
+  .hp1,.hp2{position:static;margin:10px;animation:none;display:inline-flex}
+}
+@media(max-width:560px){.cards{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr}.lead-grid{grid-template-columns:1fr;max-width:340px}}
+</style>
+</head>
+<body>
+<div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+<div class="grid-overlay"></div>
+
+
+<div class="topnote">An autonomous body under the <b>Ministry of Commerce &amp; Industry</b> · A Constituent Board of Quality Council of India</div>
+
+<header>
+  <nav class="nav glass">
+    <a href="#" class="logo">
+      <img src="src/images/nabcb-updated.png" alt="NABCB">
+      <span><b>NABCB</b><small>Accreditation Board</small></span>
+    </a>
+    <div class="menu">
+      <a href="#">About</a><a href="#">Accreditation</a><a href="#">Schemes</a>
+      <a href="#">Directory</a><a href="#">Media</a><a href="#">Contact</a>
+    </div>
+    <div class="navx">
+      <span class="lang">EN · HI</span>
+      <a href="#" class="btn btn-glow" style="padding:11px 20px">Portal Login</a>
+      <div class="hamb"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero"><div class="wrap">
+  <span class="chip glass"><span class="pulse"></span> Globally recognised · IAF · ILAC · APAC signatory</span>
+  <h1>Accreditation, <span class="gradtext">reimagined</span> for a world that runs on trust.</h1>
+  <p>NABCB assesses the competence of Inspection, Certification and Validation &amp; Verification Bodies against international standards — so a certificate issued in India is trusted everywhere.</p>
+  <div class="hero-cta">
+    <a href="#" class="btn btn-glow">Start accreditation →</a>
+    <a href="#" class="btn btn-glass">🔍 Search accredited bodies</a>
+  </div>
+
+  <div class="hero-panel glass">
+    <div class="hero-slider" id="heroSlider">
+      <div class="hs-slide active"><img src="src/images/5-IAF-ILAC-Joint-Annual-Meeting-Photo.jpg" alt="IAF ILAC Joint Annual Meeting"></div>
+      <div class="hs-slide"><img src="src/images/1-NIK_6792-1-scaled.jpg" alt="NABCB event"></div>
+      <div class="hs-slide"><img src="src/images/2-NIK_3151-scaled.jpg" alt="NABCB event"></div>
+      <div class="hs-slide"><img src="src/images/3-DSC_2789-scaled.jpg" alt="NABCB event"></div>
+      <div class="hs-slide"><img src="src/images/4-DSC_2916-scaled.jpg" alt="NABCB event"></div>
+      <div class="hs-slide"><img src="src/images/6-DSC_4371-scaled.jpg" alt="NABCB event"></div>
+      <!-- <div class="hs-arrow hs-prev" onclick="heroGo(-1)">‹</div>
+      <div class="hs-arrow hs-next" onclick="heroGo(1)">›</div> -->
+      <div class="hs-dots" id="heroDots"></div>
+    </div>
+    <div class="hp-tag glass hp1"><div class="ic" style="background:rgba(63,179,230,.2)">🌐</div><div><b>15+</b><span>Countries</span></div></div>
+    <div class="hp-tag glass hp2"><div class="ic" style="background:rgba(55,201,138,.2)">✔</div><div><b>25K+</b><span>Certificates</span></div></div>
+  </div>
+
+  <div class="recog">
+    <div class="r glass"><img src="src/images/iaf.png" alt="IAF"><span>Member of <b>IAF</b></span></div>
+    <div class="r glass"><img src="src/images/ilac.jpg" alt="ILAC"><span>Member of <b>ILAC</b></span></div>
+    <div class="r glass"><img src="src/images/apac.png" alt="APAC"><span>Member of <b>APAC</b></span></div>
+  </div>
+</div></section>
+
+<!-- SCHEMES -->
+<section class="sec"><div class="wrap">
+  <div class="sec-head">
+    <span class="kick">What we accredit</span>
+    <h2>Five schemes. One global standard.</h2>
+    <p>Each domain is governed by an international ISO/IEC standard and assessed by NABCB's expert panels.</p>
+  </div>
+  <div class="cards">
+    <div class="card glass"><div class="glow" style="background:var(--blue)"></div><div class="ic" style="background:rgba(63,179,230,.18)">📋</div><h3>Management Systems</h3><span class="iso">ISO/IEC 17021-1:2015</span><p>Audit and certification of management systems.</p><a href="#">Explore →</a></div>
+    <div class="card glass"><div class="glow" style="background:var(--green)"></div><div class="ic" style="background:rgba(55,201,138,.18)">📦</div><h3>Product / Process</h3><span class="iso">ISO/IEC 17065:2012</span><p>Bodies certifying products, processes and services.</p><a href="#">Explore →</a></div>
+    <div class="card glass"><div class="glow" style="background:var(--yellow)"></div><div class="ic" style="background:rgba(246,207,75,.25)">👤</div><h3>Certification of Persons</h3><span class="iso">ISO/IEC 17024:2012</span><p>Bodies operating certification of persons.</p><a href="#">Explore →</a></div>
+    <div class="card glass"><div class="glow" style="background:var(--sky)"></div><div class="ic" style="background:rgba(191,230,247,.5)">🔎</div><h3>Inspection</h3><span class="iso">ISO/IEC 17020:2012</span><p>Bodies performing various types of inspection.</p><a href="#">Explore →</a></div>
+    <div class="card glass"><div class="glow" style="background:var(--mint)"></div><div class="ic" style="background:rgba(159,230,200,.5)">✅</div><h3>Validation &amp; Verification</h3><span class="iso">ISO/IEC 17029:2019</span><p>Validation and verification bodies.</p><a href="#">Explore →</a></div>
+    <div class="card glass" style="background:linear-gradient(135deg,rgba(63,179,230,.22),rgba(55,201,138,.22));border-color:rgba(63,179,230,.4)"><div class="ic" style="background:rgba(255,255,255,.55)">🧭</div><h3>All schemes &amp; fees</h3><span class="iso">Documents</span><p>Browse scheme documents, fees and the full process.</p><a href="#">Get started →</a></div>
+  </div>
+</div></section>
+
+<!-- STATS -->
+<section class="stats"><div class="wrap">
+  <div class="stat-grid">
+    <div class="stat glass"><b>30+</b><span>Accreditation Schemes</span></div>
+    <div class="stat glass"><b>300+</b><span>Accredited Bodies</span></div>
+    <div class="stat glass"><b>25K+</b><span>Accredited Certificates</span></div>
+    <div class="stat glass"><b>15+</b><span>Countries</span></div>
+  </div>
+</div></section>
+
+<!-- ABOUT -->
+<section class="sec about"><div class="wrap">
+  <div class="grid">
+    <div class="about-vis"><img src="src/images/1-NIK_6792-1-scaled.jpg" alt="About NABCB"></div>
+    <div>
+      <span class="kick">About NABCB</span>
+      <h2>The authority that makes trust <span class="gradtext">measurable</span>.</h2>
+      <p>NABCB provides accreditation to Inspection, Certification and Validation &amp; Verification Bodies based on assessment of their competence as per the Board's criteria and in accordance with international standards and guidelines.</p>
+      <div class="feat">
+        <div class="f glass"><div class="d">IAF</div><div><b>International Accreditation Forum</b><span>Member &amp; MLA signatory</span></div></div>
+        <div class="f glass"><div class="d">ILAC</div><div><b>Int'l Laboratory Accreditation Cooperation</b><span>Member &amp; MRA signatory</span></div></div>
+        <div class="f glass"><div class="d">APAC</div><div><b>Asia Pacific Accreditation Cooperation</b><span>Member &amp; MRA signatory</span></div></div>
+      </div>
+      <a href="#" class="btn btn-glow">Read more →</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- LEADERSHIP -->
+<section class="sec"><div class="wrap">
+  <div class="sec-head">
+    <span class="kick">Board Leadership</span>
+    <h2>Steered by <span class="gradtext">experience &amp; integrity</span>.</h2>
+    <p>NABCB's governance and operations are led by a Chairperson and Chief Executive Officer overseeing the Board's accreditation programmes.</p>
+  </div>
+  <div class="lead-grid">
+    <div class="lead-card glass"><div class="glow" style="background:var(--blue)"></div>
+      <div class="lead-pic"><img src="src/images/chairman-hd.jpg" alt="Dr. Ravi P Singh"></div>
+      <h3>Dr. Ravi P Singh</h3><span class="role">Chairperson</span>
+    </div>
+    <div class="lead-card glass"><div class="glow" style="background:var(--green)"></div>
+      <div class="lead-pic"><img src="src/images/ceo-hd.jpg" alt="Mr. N. Venkateswaran"></div>
+      <h3>Mr. N. Venkateswaran</h3><span class="role">Chief Executive Officer</span>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:34px"><a href="#" class="btn btn-glass">View full leadership →</a></div>
+</div></section>
+
+<!-- UPDATES -->
+<section class="sec"><div class="wrap">
+  <div class="sec-head"><span class="kick">Stay current</span><h2>Latest updates &amp; announcements</h2></div>
+  <div class="up-grid">
+    <div class="up-panel glass">
+      <h3><span class="tag">NEWS</span> News &amp; Updates</h3>
+      <ul class="feed">
+        <li><span class="dot"></span><div class="t"><small>May 2026</small>NABCB Updates — May 2026</div></li>
+        <li><span class="dot"></span><div class="t"><small>Policy · AIMS</small>Transition policy to ISO/IEC 42006:2025 (AIMS)</div></li>
+        <li><span class="dot"></span><div class="t"><small>APAC · MRA</small>Signatory to APAC MRA for EOMS &amp; FAMI-QS</div></li>
+        <li><span class="dot"></span><div class="t"><small>First · ITSMS</small>First signatory of APAC MRA for ITSMS (ISO/IEC 20000-1)</div></li>
+        <li><span class="dot"></span><div class="t"><small>Launch · AQMS</small>Accreditation Scheme for Aerospace Quality Management Systems</div></li>
+      </ul>
+    </div>
+    <div class="up-panel glass">
+      <h3><span class="tag" style="background:linear-gradient(110deg,var(--green),var(--yellow-deep))">NOTICE</span> Announcements</h3>
+      <ul class="feed">
+        <li><span class="dot v"></span><div class="t"><small>Mandatory · 01 Jul 2026</small>Use of NABCB Accreditation Symbol on certificates is mandatory</div></li>
+        <li><span class="dot v"></span><div class="t"><small>Global ACI</small>Now live across all social media platforms</div></li>
+        <li><span class="dot v"></span><div class="t"><small>Circular</small>India Conformity Assessment Scheme (i-CAS) – Halal</div></li>
+        <li><span class="dot v"></span><div class="t"><small>MoU · BCI</small>Signed MoU with Better Cotton Initiative</div></li>
+        <li><span class="dot v"></span><div class="t"><small>CCTS</small>Accreditation mandated under Carbon Credit Trading Scheme</div></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- PARTNERS -->
+<section class="partners"><div class="wrap">
+  <span class="kick">Trusted by regulators &amp; scheme owners</span>
+  <div class="p-slider">
+    <div class="p-track">
+      <div class="pcard"><img src="src/images/logos/globalgap-hd.png" alt="GlobalGAP"></div>
+      <div class="pcard"><img src="src/images/logos/fssc22000-hd.png" alt="FSSC 22000"></div>
+      <div class="pcard"><img src="src/images/logos/fssc24000-hd.png" alt="FSSC 24000"></div>
+      <div class="pcard"><img src="src/images/logos/seri-hd.png" alt="SERI"></div>
+      <div class="pcard"><img src="src/images/logos/pngrb-hd.png" alt="PNGRB"></div>
+      <div class="pcard"><img src="src/images/logos/pefc-hd.png" alt="PEFC"></div>
+      <div class="pcard"><img src="src/images/logos/famiqs-hd.png" alt="FAMI-QS"></div>
+      <div class="pcard"><img src="src/images/logos/apeda-hd.png" alt="APEDA"></div>
+      <div class="pcard"><img src="src/images/logos/scheme-owner.png" alt="Scheme owner"></div>
+      <div class="pcard"><img src="src/images/logos/fssai-hd.png" alt="FSSAI"></div>
+      <div class="pcard"><img src="src/images/logos/directorate.png" alt="Directorate General"></div>
+      <div class="pcard"><img src="src/images/logos/drdo-hd.png" alt="Defence R&D"></div>
+      <div class="pcard"><img src="src/images/logos/bis-hd.png" alt="BIS"></div>
+      <!-- duplicate set for seamless loop -->
+      <div class="pcard"><img src="src/images/logos/globalgap-hd.png" alt="GlobalGAP"></div>
+      <div class="pcard"><img src="src/images/logos/fssc22000-hd.png" alt="FSSC 22000"></div>
+      <div class="pcard"><img src="src/images/logos/fssc24000-hd.png" alt="FSSC 24000"></div>
+      <div class="pcard"><img src="src/images/logos/seri-hd.png" alt="SERI"></div>
+      <div class="pcard"><img src="src/images/logos/pngrb-hd.png" alt="PNGRB"></div>
+      <div class="pcard"><img src="src/images/logos/pefc-hd.png" alt="PEFC"></div>
+      <div class="pcard"><img src="src/images/logos/famiqs-hd.png" alt="FAMI-QS"></div>
+      <div class="pcard"><img src="src/images/logos/apeda-hd.png" alt="APEDA"></div>
+      <div class="pcard"><img src="src/images/logos/scheme-owner.png" alt="Scheme owner"></div>
+      <div class="pcard"><img src="src/images/logos/fssai-hd.png" alt="FSSAI"></div>
+      <div class="pcard"><img src="src/images/logos/directorate.png" alt="Directorate General"></div>
+      <div class="pcard"><img src="src/images/logos/drdo-hd.png" alt="Defence R&D"></div>
+      <div class="pcard"><img src="src/images/logos/bis-hd.png" alt="BIS"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="cta"><div class="wrap">
+  <div class="cta-box glass">
+    <h2>Ready to be <span class="gradtext">globally recognised?</span></h2>
+    <p>Begin your accreditation journey with NABCB and unlock credibility that travels across borders.</p>
+    <a href="#" class="btn btn-glow">Begin accreditation process →</a>
+  </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div class="flogo">
+      <img src="src/images/nabcb-updated.png" alt="NABCB">
+      <p>National Accreditation Board for Certification Bodies — a Constituent Board of Quality Council of India.</p>
+      <p>World Trade Centre, J 200, Block J, Nauroji Nagar, New Delhi-110029</p>
+      <div class="soc"><a href="#">f</a><a href="#">in</a><a href="#">𝕏</a></div>
+    </div>
+    <div><h4>Quick Links</h4><a href="#">About NABCB</a><a href="#">Accreditation Process</a><a href="#">Fees</a><a href="#">FAQs</a></div>
+    <div><h4>Directory</h4><a href="#">Accredited Bodies</a><a href="#">Suspended Bodies</a><a href="#">IAF CertSearch</a></div>
+    <div><h4>Contact</h4><p>📞 011-26186680</p><p>✉ contact.nabcb@qcin.org</p><a href="#">Disclaimer</a><a href="#">Privacy Policy</a></div>
+  </div>
+  <div class="fbot"><span>© 2026 NABCB · All rights reserved</span><span>Visitors · 0 0 0 1 6 5 3 5 5 7</span></div>
+</div></footer>
+
+<div class="fab"><a href="#" title="Chat with us">💬</a></div>
+
+<script>
+(function(){
+  var slides=document.querySelectorAll('#heroSlider .hs-slide');
+  var dotsWrap=document.getElementById('heroDots');
+  var idx=0,timer;
+  slides.forEach(function(_,i){
+    var d=document.createElement('i');
+    if(i===0)d.className='active';
+    d.addEventListener('click',function(){ go(i); });
+    dotsWrap.appendChild(d);
+  });
+  var dots=dotsWrap.querySelectorAll('i');
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+  }
+  function go(i){ idx=(i+slides.length)%slides.length; render(); reset(); }
+  function reset(){ clearInterval(timer); timer=setInterval(function(){ go(idx+1); },4200); }
+  window.heroGo=function(dir){ go(idx+dir); };
+  reset();
+})();
+</script>
+</body>
+</html>

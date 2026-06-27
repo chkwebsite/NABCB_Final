@@ -1,0 +1,3884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NABCB – National Accreditation Board for Certification Bodies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue: #0056A6;
+      --blue2: #0A75C2;
+      --accent: #00C2FF;
+      --navy: #071C34;
+      --success: #0FA958;
+      --bg: #F7FAFC;
+      --card: #ffffff;
+      --text: #0F172A;
+      --muted: #475569;
+      --light: #94A3B8;
+      --border: rgba(15, 23, 42, .08);
+      --border-md: rgba(15, 23, 42, .13);
+      --grad: linear-gradient(135deg, #0056A6, #0A75C2, #0088FF);
+      --grad-hero: linear-gradient(135deg, #071C34 0%, #0056A6 60%, #0A75C2 100%);
+      --shadow-sm: 0 1px 4px rgba(15, 23, 42, .06);
+      --shadow-md: 0 4px 16px rgba(15, 23, 42, .08);
+      --shadow-lg: 0 8px 32px rgba(0, 86, 166, .12);
+      --r8: 8px;
+      --r12: 12px;
+      --r16: 16px;
+      --r20: 20px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--blue);
+      color: #fff;
+      padding: 8px 16px;
+      z-index: 9999;
+      border-radius: 0 0 8px 0;
+      font-size: 13px;
+      font-weight: 600;
+      transition: top .2s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    #neural-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .45;
+    }
+
+    .announcement-bar {
+      background: var(--navy);
+      color: rgba(255, 255, 255, .85);
+      font-size: 12px;
+      padding: 8px 0;
+      position: relative;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .announcement-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ann-badge {
+      background: var(--accent);
+      color: var(--navy);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .ann-scroll {
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .ann-track {
+      display: flex;
+      gap: 40px;
+      animation: ticker 28s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+
+    .ann-track:hover {
+      animation-play-state: paused;
+    }
+
+    .ann-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ann-item a {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .ann-item a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes ticker {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .ann-actions {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+      font-size: 11px;
+    }
+
+    .ann-actions a {
+      color: rgba(255, 255, 255, .6);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color .2s;
+    }
+
+    .ann-actions a:hover {
+      color: #fff;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(255, 255, 255, .88);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+
+    .header.scrolled {
+      box-shadow: 0 2px 20px rgba(15, 23, 42, .08);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 64px;
+      padding: 0 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .logo-shield {
+      width: 38px;
+      height: 38px;
+      background: var(--grad);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 10px rgba(0, 86, 166, .3);
+    }
+
+    .logo-shield svg {
+      width: 20px;
+      height: 20px;
+      color: #fff;
+    }
+
+    .logo-text-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--navy);
+      letter-spacing: .02em;
+      line-height: 1.2;
+    }
+
+    .logo-org {
+      font-size: 9.5px;
+      color: var(--muted);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-left: auto;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      border-radius: var(--r8);
+      transition: all .2s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .nav-link:hover,
+    .nav-item:focus-within .nav-link {
+      color: var(--blue);
+      background: rgba(0, 86, 166, .06);
+    }
+
+    .nav-link svg {
+      width: 12px;
+      height: 12px;
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+
+    .nav-item:focus-within .nav-link svg,
+    .nav-item:hover .nav-link svg {
+      transform: rotate(180deg);
+    }
+
+    .mega-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid var(--border-md);
+      border-radius: var(--r12);
+      box-shadow: 0 8px 40px rgba(15, 23, 42, .12);
+      padding: 20px;
+      min-width: 280px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all .2s;
+      z-index: 300;
+    }
+
+    .nav-item:hover .mega-menu,
+    .nav-item:focus-within .mega-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .mega-menu-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--light);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mega-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .mega-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--r8);
+      font-size: 13px;
+      color: var(--muted);
+      transition: all .18s;
+      text-decoration: none;
+    }
+
+    .mega-link:hover {
+      background: rgba(0, 86, 166, .06);
+      color: var(--blue);
+      padding-left: 14px;
+    }
+
+    .mega-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: .6;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--r8);
+      border: 1px solid var(--border-md);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: rgba(0, 86, 166, .05);
+    }
+
+    .icon-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .lang-btn {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: var(--r8);
+      border: 1px solid var(--border-md);
+      background: var(--bg);
+      color: var(--muted);
+      letter-spacing: .04em;
+      transition: all .2s;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .btn-login {
+      padding: 8px 18px;
+      border-radius: var(--r8);
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--grad);
+      color: #fff;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 86, 166, .28);
+      transition: all .22s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(0, 86, 166, .4);
+    }
+
+    .btn-login svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--r8);
+      border: 1px solid var(--border-md);
+      background: var(--bg);
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 1.5px;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: all .3s;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(165deg, #071C34 0%, #0056A6 55%, #0088FF 100%);
+      overflow: hidden;
+      padding: 80px 0 60px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(0, 194, 255, .06) 0%, transparent 60%), radial-gradient(circle at 80% 20%, rgba(255, 255, 255, .04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-bg-photo {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      opacity: .4;
+      filter: grayscale(.15) contrast(1.05);
+    }
+
+    .hero-bg-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(165deg, rgba(7, 28, 52, .94) 0%, rgba(0, 86, 166, .88) 55%, rgba(0, 136, 255, .8) 100%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .hero-orb1 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 194, 255, .12) 0%, transparent 70%);
+      top: -100px;
+      right: -80px;
+      pointer-events: none;
+      animation: orb-float 8s ease-in-out infinite;
+    }
+
+    .hero-orb2 {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 86, 166, .18) 0%, transparent 70%);
+      bottom: -80px;
+      left: 10%;
+      pointer-events: none;
+      animation: orb-float 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes orb-float {
+
+      0%,
+      100% {
+        transform: translateY(0px) scale(1);
+      }
+
+      50% {
+        transform: translateY(-20px) scale(1.04);
+      }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 24px;
+      padding: 6px 14px;
+      margin-bottom: 20px;
+      animation: fadeUp .6s ease both;
+      backdrop-filter: blur(10px);
+    }
+
+    .trust-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 194, 255, .5);
+      }
+
+      50% {
+        box-shadow: 0 0 0 5px rgba(0, 194, 255, 0);
+      }
+    }
+
+    .trust-badge span {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .9);
+      letter-spacing: .03em;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      animation: fadeUp .6s .08s ease both;
+      opacity: 0;
+      animation-fill-mode: both;
+    }
+
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 18px;
+      animation: fadeUp .6s .16s ease both;
+      opacity: 0;
+      animation-fill-mode: both;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(90deg, #00C2FF, #7DD3FA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.75;
+      margin-bottom: 32px;
+      animation: fadeUp .6s .24s ease both;
+      opacity: 0;
+      animation-fill-mode: both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      animation: fadeUp .6s .32s ease both;
+      opacity: 0;
+      animation-fill-mode: both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: var(--r12);
+      font-size: 14px;
+      font-weight: 600;
+      background: #fff;
+      color: var(--blue);
+      border: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .15);
+      transition: all .22s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .2);
+    }
+
+    .btn-primary svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: var(--r12);
+      font-size: 14px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, .1);
+      color: #fff;
+      border: 1.5px solid rgba(255, 255, 255, .25);
+      cursor: pointer;
+      transition: all .22s;
+      text-decoration: none;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, .18);
+      border-color: rgba(255, 255, 255, .5);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--r12);
+      font-size: 13.5px;
+      font-weight: 600;
+      background: transparent;
+      color: var(--blue);
+      border: 1.5px solid rgba(0, 86, 166, .25);
+      cursor: pointer;
+      transition: all .22s;
+      text-decoration: none;
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 86, 166, .06);
+      border-color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-blue {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--r12);
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--grad);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 14px rgba(0, 86, 166, .3);
+      cursor: pointer;
+      transition: all .22s;
+      text-decoration: none;
+    }
+
+    .btn-blue:hover {
+      box-shadow: 0 6px 22px rgba(0, 86, 166, .45);
+      transform: translateY(-2px);
+    }
+
+    .btn-blue svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero-visual {
+      animation: fadeUp .8s .4s ease both;
+      opacity: 0;
+      animation-fill-mode: both;
+    }
+
+    .hero-photo-frame {
+      position: relative;
+      border-radius: var(--r20);
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .35), 0 0 0 1px rgba(255, 255, 255, .12);
+      margin-bottom: 16px;
+      height: 300px;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-photo-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7, 28, 52, 0) 35%, rgba(7, 28, 52, .85) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-slide-dots {
+      position: absolute;
+      right: 16px;
+      bottom: 14px;
+      z-index: 3;
+      display: flex;
+      gap: 6px;
+    }
+
+    .hero-slide-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .4);
+      transition: all .25s;
+      cursor: pointer;
+    }
+
+    .hero-slide-dot.active {
+      background: #fff;
+      width: 18px;
+      border-radius: 3px;
+    }
+
+    .hero-photo-caption {
+      position: absolute;
+      left: 18px;
+      bottom: 14px;
+      right: 18px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: .01em;
+    }
+
+    .hero-photo-caption svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero-card-stack {
+      position: relative;
+    }
+
+    .stat-float-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-float-card {
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: var(--r16);
+      padding: 20px 18px;
+      backdrop-filter: blur(12px);
+      text-align: center;
+      transition: all .25s;
+    }
+
+    .stat-float-card:hover {
+      background: rgba(255, 255, 255, .16);
+      transform: translateY(-3px);
+    }
+
+    .stat-float-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(0, 194, 255, .18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+    }
+
+    .stat-float-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+    }
+
+    .stat-float-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-float-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .65);
+      font-weight: 500;
+    }
+
+    .hero-provides {
+      margin-top: 32px;
+      padding: 0;
+    }
+
+    .provides-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .5);
+      margin-bottom: 12px;
+      animation: fadeUp .6s .42s ease both;
+      opacity: 0;
+      animation-fill-mode: both;
+    }
+
+    .provides-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .provides-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--r8);
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .8);
+      font-weight: 500;
+      transition: all .2s;
+      animation: fadeUp .6s ease both;
+      opacity: 0;
+      animation-fill-mode: both;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .provides-item:nth-child(1) {
+      animation-delay: .44s;
+    }
+
+    .provides-item:nth-child(2) {
+      animation-delay: .5s;
+    }
+
+    .provides-item:nth-child(3) {
+      animation-delay: .56s;
+    }
+
+    .provides-item:nth-child(4) {
+      animation-delay: .62s;
+    }
+
+    .provides-item:hover {
+      background: rgba(255, 255, 255, .14);
+      border-color: rgba(255, 255, 255, .25);
+      color: #fff;
+    }
+
+    .provides-item svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .partners-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .partners-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .partners-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .partners-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border-md);
+      flex-shrink: 0;
+    }
+
+    .partners-scroll {
+      overflow: hidden;
+      flex: 1;
+      position: relative;
+    }
+
+    .partners-scroll::before,
+    .partners-scroll::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .partners-scroll::before {
+      left: 0;
+      background: linear-gradient(to right, #fff, transparent);
+    }
+
+    .partners-scroll::after {
+      right: 0;
+      background: linear-gradient(to left, #fff, transparent);
+    }
+
+    .partners-track {
+      display: flex;
+      gap: 10px;
+      animation: scroll-track 22s linear infinite;
+      width: max-content;
+    }
+
+    .partners-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll-track {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+
+    .partner-chip {
+      padding: 10px 18px;
+      border-radius: 7px;
+      border: 1px solid var(--border-md);
+      background: #fff;
+      white-space: nowrap;
+      transition: all .2s;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+    }
+
+    .partner-chip img {
+      height: 28px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+      filter: grayscale(.15);
+      opacity: .85;
+      transition: all .2s;
+    }
+
+    .partner-chip:hover {
+      border-color: var(--blue);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .partner-chip:hover img {
+      filter: none;
+      opacity: 1;
+    }
+
+    .about-section {
+      background: #fff;
+      padding: 80px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .intl-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 24px 0 28px;
+    }
+
+    .intl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 7px;
+      background: rgba(0, 86, 166, .07);
+      border: 1px solid rgba(0, 86, 166, .15);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue);
+    }
+
+    .intl-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .about-visual-card {
+      background: linear-gradient(145deg, var(--navy), #0A3060);
+      border-radius: var(--r20);
+      padding: 32px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-visual-card::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(0, 194, 255, .07);
+    }
+
+    .about-visual-card h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .member-entries {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .member-entry {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--r8);
+      transition: all .2s;
+    }
+
+    .member-entry:hover {
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .member-entry-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .member-entry-text {
+      font-size: 13px;
+      font-weight: 500;
+      opacity: .9;
+      line-height: 1.4;
+    }
+
+    .member-entry-sub {
+      font-size: 11px;
+      opacity: .55;
+      margin-top: 2px;
+    }
+
+    .about-mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+      position: relative;
+    }
+
+    .about-mini-stat {
+      text-align: center;
+      padding: 12px 8px;
+      background: rgba(255, 255, 255, .06);
+      border-radius: var(--r8);
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .about-mini-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--accent);
+    }
+
+    .about-mini-label {
+      font-size: 10px;
+      opacity: .6;
+      margin-top: 3px;
+    }
+
+    .section {
+      padding: 72px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-bg-alt {
+      background: var(--bg);
+    }
+
+    .section-bg-white {
+      background: #fff;
+    }
+
+    .section-header {
+      margin-bottom: 44px;
+    }
+
+    .section-header.center {
+      text-align: center;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      width: 18px;
+      height: 2.5px;
+      background: var(--grad);
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(22px, 3vw, 32px);
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .section-header.center .section-sub {
+      margin: 0 auto;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== UPDATED SCHEMES SECTION ========== */
+    .schemes-section {
+      padding: 72px 0;
+      background: var(--bg);
+    }
+
+    .schemes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 0;
+    }
+
+    .scheme-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r16);
+      padding: 28px 24px;
+      transition: all .28s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+    }
+
+    .scheme-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--grad);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s ease;
+    }
+
+    .scheme-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(0, 86, 166, .2);
+    }
+
+    .scheme-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .scheme-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(0, 86, 166, .08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      transition: all .28s;
+    }
+
+    .scheme-card:hover .scheme-icon {
+      background: rgba(0, 86, 166, .14);
+      transform: scale(1.05);
+    }
+
+    .scheme-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--blue);
+    }
+
+    .scheme-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+
+    .scheme-std {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 10px;
+      letter-spacing: .02em;
+    }
+
+    .scheme-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .scheme-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--blue2);
+      transition: gap .2s;
+    }
+
+    .scheme-card:hover .scheme-more {
+      gap: 8px;
+    }
+
+    .scheme-more svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .scheme-card.fee-card {
+      background: linear-gradient(135deg, rgba(0, 86, 166, .04), rgba(0, 194, 255, .04));
+      border-style: dashed;
+      border-color: rgba(0, 86, 166, .2);
+    }
+
+    .hidden-cards {
+      display: none;
+    }
+
+    .hidden-cards.visible {
+      display: contents;
+    }
+
+    .view-all-row {
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .btn-view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 30px;
+      border-radius: var(--r12);
+      font-size: 13.5px;
+      font-weight: 600;
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid rgba(0, 86, 166, .22);
+      cursor: pointer;
+      transition: all .22s;
+    }
+
+    .btn-view-all:hover {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(0, 86, 166, .3);
+      transform: translateY(-2px);
+    }
+
+    .btn-view-all svg {
+      width: 16px;
+      height: 16px;
+      transition: transform .25s;
+    }
+
+    /* ========== UPDATED LEADERSHIP SECTION ========== */
+    .leadership-grid-new {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .leader-card-new {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r16);
+      overflow: hidden;
+      transition: all .28s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .leader-card-new:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(0, 86, 166, .14);
+      border-color: rgba(0, 86, 166, .22);
+    }
+
+    .leader-card-top {
+      padding: 28px 24px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .leader-card-top.blue-grad {
+      background: linear-gradient(135deg, #0056A6, #0A75C2, #0088FF);
+    }
+
+    .leader-card-top.navy-grad {
+      background: linear-gradient(135deg, #071C34, #0A5090);
+    }
+
+    .leader-card-top::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+    }
+
+    .leader-card-top::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 20px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .leader-badge-new {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, .15);
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .9);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .leader-badge-new::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .leader-avatar-wrap-new {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      z-index: 2;
+    }
+
+    .leader-avatar-new {
+      width: 68px;
+      height: 68px;
+      border-radius: 16px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--blue);
+      letter-spacing: .04em;
+      box-shadow: 0 4px 16px rgba(0, 86, 166, .25);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      border: 3px solid #fff;
+      overflow: hidden;
+    }
+
+    .leader-avatar-new img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 13px;
+    }
+
+    .leader-card-body-new {
+      padding: 44px 24px 0;
+    }
+
+    .leader-name-new {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .leader-role-new {
+      font-size: 12px;
+      color: var(--blue);
+      font-weight: 600;
+      letter-spacing: .03em;
+      margin-bottom: 14px;
+    }
+
+    .leader-desc-new {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .leader-links-new {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding-bottom: 18px;
+    }
+
+    .leader-link-new {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 7px;
+      background: rgba(0, 86, 166, .07);
+      border: 1px solid rgba(0, 86, 166, .12);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--blue);
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+    }
+
+    .leader-link-new:hover {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .leader-link-new svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .leader-stats-strip {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .leader-stat-item {
+      flex: 1;
+      text-align: center;
+      padding: 12px 8px;
+      border-right: 1px solid var(--border);
+    }
+
+    .leader-stat-item:last-child {
+      border-right: none;
+    }
+
+    .leader-stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--blue);
+    }
+
+    .leader-stat-label {
+      font-size: 10px;
+      color: var(--light);
+      margin-top: 2px;
+    }
+
+    .team-teaser-new {
+      margin-top: 24px;
+      background: linear-gradient(135deg, #071C34, #0056A6);
+      border-radius: var(--r16);
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-teaser-new::before {
+      content: '';
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(0, 194, 255, .07);
+    }
+
+    .team-avatars {
+      display: flex;
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-avatar-chip {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(255, 255, 255, .25);
+      background: rgba(255, 255, 255, .12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .9);
+      margin-left: -10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .team-avatar-chip:first-child {
+      margin-left: 0;
+    }
+
+    .team-avatar-chip.more {
+      background: rgba(0, 194, 255, .2);
+      border-color: rgba(0, 194, 255, .4);
+      color: var(--accent);
+      font-size: 11px;
+    }
+
+    .team-text {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-text h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .team-text p {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .6);
+    }
+
+    .btn-team {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 20px;
+      border-radius: var(--r12);
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, .12);
+      border: 1.5px solid rgba(255, 255, 255, .25);
+      color: #fff;
+      cursor: pointer;
+      transition: all .22s;
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .btn-team:hover {
+      background: rgba(255, 255, 255, .22);
+      transform: translateY(-2px);
+    }
+
+    .btn-team svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Rest of original styles */
+    .updates-section {
+      background: #fff;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 4px;
+      background: rgba(15, 23, 42, .04);
+      border-radius: 12px;
+      padding: 5px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .tab-btn {
+      padding: 8px 20px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all .22s;
+    }
+
+    .tab-btn.active {
+      background: #fff;
+      color: var(--blue);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .update-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 16px 18px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r12);
+      cursor: pointer;
+      transition: all .22s;
+      text-decoration: none;
+    }
+
+    .update-item:hover {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 86, 166, .15);
+      transform: translateX(4px);
+    }
+
+    .update-date-block {
+      flex-shrink: 0;
+      text-align: center;
+      min-width: 46px;
+    }
+
+    .update-date-month {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .update-date-day {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .update-divider {
+      width: 1px;
+      background: var(--border-md);
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+
+    .update-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .update-tag {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .tag-news {
+      background: rgba(0, 86, 166, .09);
+      color: var(--blue);
+    }
+
+    .tag-event {
+      background: rgba(15, 169, 88, .1);
+      color: var(--success);
+    }
+
+    .tag-advisory {
+      background: rgba(245, 158, 11, .1);
+      color: #B45309;
+    }
+
+    .tag-alert {
+      background: rgba(239, 68, 68, .09);
+      color: #DC2626;
+    }
+
+    .update-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.5;
+    }
+
+    .update-arrow {
+      flex-shrink: 0;
+      color: var(--light);
+      margin-top: 2px;
+      transition: transform .2s;
+    }
+
+    .update-item:hover .update-arrow {
+      transform: translateX(4px);
+      color: var(--blue);
+    }
+
+    .update-arrow svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .dir-section {
+      background: var(--bg);
+    }
+
+    .dir-hero-card {
+      background: var(--grad);
+      border-radius: var(--r20);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .dir-hero-card::before {
+      content: '';
+      position: absolute;
+      right: -50px;
+      top: -50px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .07);
+    }
+
+    .dir-hero-card::after {
+      content: '';
+      position: absolute;
+      right: 60px;
+      bottom: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .dir-hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .dir-hero-card h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .dir-hero-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.7;
+      margin-bottom: 28px;
+      max-width: 480px;
+    }
+
+    .dir-links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .dir-link-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 16px 14px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: var(--r12);
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: all .22s;
+      text-decoration: none;
+    }
+
+    .dir-link-item:hover {
+      background: rgba(255, 255, 255, .2);
+      transform: translateY(-2px);
+    }
+
+    .dir-link-item svg {
+      width: 20px;
+      height: 20px;
+      opacity: .85;
+    }
+
+    .dir-link-sub {
+      font-size: 11px;
+      opacity: .65;
+      font-weight: 400;
+    }
+
+    .publications-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .pub-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r16);
+      padding: 24px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: all .25s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .pub-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+      border-color: rgba(0, 86, 166, .18);
+    }
+
+    .pub-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(0, 86, 166, .08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: .25s;
+    }
+
+    .pub-card:hover .pub-icon {
+      background: rgba(0, 86, 166, .14);
+    }
+
+    .pub-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--blue);
+    }
+
+    .pub-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+
+    .pub-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .pub-link {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--blue2);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pub-link svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .contact-section {
+      background: var(--bg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .contact-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r12);
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: all .22s;
+    }
+
+    .contact-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 86, 166, .15);
+    }
+
+    .contact-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(0, 86, 166, .08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon-wrap svg {
+      width: 19px;
+      height: 19px;
+      color: var(--blue);
+    }
+
+    .contact-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--light);
+      margin-bottom: 5px;
+    }
+
+    .contact-value {
+      font-size: 13.5px;
+      color: var(--navy);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .contact-value a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .contact-value a:hover {
+      text-decoration: underline;
+    }
+
+    .online-support-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .support-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--r8);
+      border: 1.5px solid var(--border-md);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: #fff;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+    }
+
+    .support-chip:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: rgba(0, 86, 166, .04);
+    }
+
+    .support-chip svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .footer {
+      background: var(--navy);
+      color: rgba(255, 255, 255, .7);
+      padding: 60px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0, 194, 255, .3), transparent);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo-mark {
+      width: 34px;
+      height: 34px;
+      background: var(--grad);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-logo-mark svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+
+    .footer-logo-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .footer-logo-sub {
+      font-size: 10px;
+      opacity: .55;
+      margin-top: 1px;
+    }
+
+    .footer-desc {
+      font-size: 12.5px;
+      line-height: 1.75;
+      opacity: .65;
+      margin-bottom: 20px;
+      max-width: 240px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 8px;
+    }
+
+    .social-link {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, .65);
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .social-link:hover {
+      background: rgba(0, 194, 255, .15);
+      border-color: rgba(0, 194, 255, .3);
+      color: var(--accent);
+    }
+
+    .social-link svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .footer-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .footer-links-list a {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .55);
+      text-decoration: none;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-links-list a:hover {
+      color: #fff;
+      padding-left: 4px;
+    }
+
+    .footer-links-list a::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--blue2);
+      flex-shrink: 0;
+      opacity: .6;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copyright {
+      font-size: 12px;
+      opacity: .45;
+    }
+
+    .footer-gov-badges {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .gov-badge {
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .65);
+    }
+
+    .footer-meta-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-meta-links a {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .4);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .footer-meta-links a:hover {
+      color: rgba(255, 255, 255, .8);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: var(--grad);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 86, 166, .35);
+      z-index: 500;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all .3s;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 22px rgba(0, 86, 166, .5);
+    }
+
+    .back-to-top svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media(max-width:1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .schemes-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+
+      .dir-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width:768px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero {
+        padding: 56px 0 44px;
+      }
+
+      .section {
+        padding: 52px 0;
+      }
+
+      .schemes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .leadership-grid-new {
+        grid-template-columns: 1fr;
+      }
+
+      .publications-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dir-links-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stat-float-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .header-actions .lang-btn {
+        display: none;
+      }
+
+      .ann-actions {
+        display: none;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-meta-links {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .back-to-top {
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .team-teaser-new {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media(max-width:480px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+      }
+
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .dir-links-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-mini-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    @media print {
+
+      #neural-canvas,
+      .back-to-top,
+      .announcement-bar {
+        display: none;
+      }
+
+      .header {
+        position: relative;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <canvas id="neural-canvas" aria-hidden="true"></canvas>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </button>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar" role="banner" aria-label="Latest announcements">
+    <div class="container">
+      <span class="ann-badge">Updates</span>
+      <div class="ann-scroll" aria-live="polite">
+        <div class="ann-track">
+          <span class="ann-item">🔵 <a href="https://nabcb.qci.org.in/advisories/">NABCB Advisory to Govt. Bodies,
+              Regulators &amp; PSUs on prescribing National Accreditation – Feb 2025</a></span>
+          <span class="ann-item">📋 <a href="https://nabcb.qci.org.in/validation-verification/">New Validation &amp;
+              Verification accreditation scheme now accepting applications</a></span>
+          <span class="ann-item">🌐 <a href="https://nabcb.qci.org.in/nabcb-updates/">IAF/ILAC Joint Annual Meeting –
+              NABCB delegation participation</a></span>
+          <span class="ann-item">📢 <a href="https://pledge.mygov.in/qualitybharat/">Quality Bharat Pledge – Join the
+              national quality movement</a></span>
+          <span class="ann-item">🔵 <a href="https://nabcb.qci.org.in/advisories/">NABCB Advisory to Govt. Bodies,
+              Regulators &amp; PSUs on prescribing National Accreditation – Feb 2025</a></span>
+          <span class="ann-item">📋 <a href="https://nabcb.qci.org.in/validation-verification/">New Validation &amp;
+              Verification accreditation scheme now accepting applications</a></span>
+          <span class="ann-item">🌐 <a href="https://nabcb.qci.org.in/nabcb-updates/">IAF/ILAC Joint Annual Meeting –
+              NABCB delegation participation</a></span>
+          <span class="ann-item">📢 <a href="https://pledge.mygov.in/qualitybharat/">Quality Bharat Pledge – Join the
+              national quality movement</a></span>
+        </div>
+      </div>
+      <div class="ann-actions">
+        <a href="https://qualitysetu.qcin.org/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>Chat with us</a>
+        <a href="https://nabcb.qci.org.in/faq/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>FAQs</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="mainHeader" role="banner">
+    <div class="header-inner">
+      <a href="https://nabcb.qci.org.in/" class="logo" aria-label="NABCB Home">
+        <img src="./src/images/nabcb-footer.png" alt="" height="50px">
+        <!-- <div class="logo-shield" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7z" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+        </div> -->
+        <div class="logo-text-wrap">
+          <span class="logo-name">NABCB</span>
+          <span class="logo-org">Quality Council of India</span>
+        </div>
+      </a>
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-item">
+          <button class="nav-link" aria-haspopup="true" aria-expanded="false">About Us<svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></button>
+          <div class="mega-menu" role="menu">
+            <div class="mega-menu-title">About</div>
+            <div class="mega-menu-links">
+              <a href="https://nabcb.qci.org.in/about-nabcb/" class="mega-link" role="menuitem"><svg viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>About NABCB</a>
+              <a href="https://nabcb.qci.org.in/policy-and-objectives/" class="mega-link" role="menuitem"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                </svg>Policy and Objectives</a>
+              <a href="https://nabcb.qci.org.in/board-composition/" class="mega-link" role="menuitem"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>Board Composition</a>
+              <a href="https://nabcb.qci.org.in/structure/" class="mega-link" role="menuitem"><svg viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                </svg>Structure</a>
+              <a href="https://nabcb.qci.org.in/our-leadership/" class="mega-link" role="menuitem"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>Our Leadership</a>
+              <a href="https://nabcb.qci.org.in/secretariat/" class="mega-link" role="menuitem"><svg viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>Secretariat</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-link" aria-haspopup="true" aria-expanded="false">Accreditation<svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></button>
+          <div class="mega-menu" role="menu"
+            style="min-width:340px;display:grid;grid-template-columns:1fr 1fr;gap:0 20px;">
+            <div>
+              <div class="mega-menu-title">Accreditation</div>
+              <div class="mega-menu-links"><a href="https://nabcb.qci.org.in/about-accreditation/"
+                  class="mega-link">About Accreditation</a><a href="https://nabcb.qci.org.in/benefits-of-accreditation/"
+                  class="mega-link">Benefits of Accreditation</a><a
+                  href="https://nabcb.qci.org.in/how-to-get-nabcb-accreditation" class="mega-link">Accreditation
+                  Process</a><a href="https://nabcb.qci.org.in/international-recognition/"
+                  class="mega-link">International Recognition</a><a href="https://nabcb.qci.org.in/recognition/"
+                  class="mega-link">Regulators &amp; Scheme Owners</a><a href="https://nabcb.qci.org.in/faq/"
+                  class="mega-link">FAQs</a></div>
+            </div>
+            <div>
+              <div class="mega-menu-title">Schemes</div>
+              <div class="mega-menu-links"><a href="https://nabcb.qci.org.in/inspection-bodies/"
+                  class="mega-link">Inspection</a><a href="https://nabcb.qci.org.in/management-system/"
+                  class="mega-link">Management Systems</a><a href="https://nabcb.qci.org.in/pcb/"
+                  class="mega-link">Product / Process</a><a href="https://nabcb.qci.org.in/prcb/"
+                  class="mega-link">Certification of Persons</a><a
+                  href="https://nabcb.qci.org.in/validation-verification/" class="mega-link">Validation &amp;
+                  Verification</a><a href="https://nabcb.qci.org.in/accreditation-fee/" class="mega-link">Accreditation
+                  Fee</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-link" aria-haspopup="true" aria-expanded="false">Publications<svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></button>
+          <div class="mega-menu" role="menu">
+            <div class="mega-menu-title">Publications</div>
+            <div class="mega-menu-links"><a href="https://nabcb.qci.org.in/scheme-documents/" class="mega-link">Scheme
+                Documents</a><a href="https://nabcb.qci.org.in/policies/" class="mega-link">Policies</a><a
+                href="https://nabcb.qci.org.in/formats-for-nabcb-assessors/" class="mega-link">Other Documents</a><a
+                href="https://nabcb.qci.org.in/advisories/" class="mega-link">Advisories</a></div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-link" aria-haspopup="true" aria-expanded="false">Directory<svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></button>
+          <div class="mega-menu" role="menu">
+            <div class="mega-menu-title">Search</div>
+            <div class="mega-menu-links"><a href="https://nabcb.qci.org.in/search-accredited-bodies/"
+                class="mega-link">Accredited Bodies</a><a href="https://nabcb.qci.org.in/accreditations-withdrawn/"
+                class="mega-link">Accreditations Withdrawn</a><a href="https://nabcb.qci.org.in/iaf/"
+                class="mega-link">IAF CertSearch</a><a href="https://nabcb.qci.org.in/suspended-bodies/"
+                class="mega-link">Suspended Bodies</a></div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-link" aria-haspopup="true" aria-expanded="false">Media Centre<svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></button>
+          <div class="mega-menu" role="menu"
+            style="min-width:300px;display:grid;grid-template-columns:1fr 1fr;gap:0 20px;">
+            <div>
+              <div class="mega-menu-title">Media</div>
+              <div class="mega-menu-links"><a href="https://nabcb.qci.org.in/gallery/" class="mega-link">Gallery</a><a
+                  href="https://nabcb.qci.org.in/nabcb-updates/" class="mega-link">NABCB Updates</a><a
+                  href="https://nabcb.qci.org.in/news-2/" class="mega-link">News</a><a
+                  href="https://nabcb.qci.org.in/events-3/" class="mega-link">Events</a><a
+                  href="https://nabcb.qci.org.in/announcement/" class="mega-link">Announcement</a></div>
+            </div>
+            <div>
+              <div class="mega-menu-title">Brochures</div>
+              <div class="mega-menu-links"><a href="https://nabcb.qci.org.in/nabcb-brochure/" class="mega-link">NABCB
+                  Brochure</a><a href="https://iaf.nu/en/iafbrochures/" class="mega-link">IAF Brochure</a><a
+                  href="https://ilac.org/publications-and-resources/ilac-promotional-brochures/" class="mega-link">ILAC
+                  Brochure</a><a href="https://www.apac-accreditation.org/publications/com-series/"
+                  class="mega-link">APAC Brochure</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-link" aria-haspopup="true" aria-expanded="false">Contact Us<svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></button>
+          <div class="mega-menu" role="menu">
+            <div class="mega-menu-title">Contact Us</div>
+            <div class="mega-menu-links"><a href="https://nabcb.qci.org.in/contact-us/" class="mega-link">Connect with
+                us</a><a href="https://nabcb.qci.org.in/public-forum/" class="mega-link">Public Forum</a></div>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Search website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg></button>
+        <button class="icon-btn" aria-label="Toggle accessibility"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4" />
+            <path d="M12 16h.01" />
+          </svg></button>
+        <button class="lang-btn" aria-label="Switch to Hindi">HI</button>
+        <a href="https://nabcbportal.qci.org.in" class="btn-login" target="_blank"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+            <polyline points="10 17 15 12 10 7" />
+            <line x1="15" y1="12" x2="3" y2="12" />
+          </svg>Portal Login</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu"
+          aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg-photo" aria-hidden="true"><img src="src/images/hero-bg.jpg" alt="" loading="eager"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-orb1" aria-hidden="true"></div>
+      <div class="hero-orb2" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-text-col">
+            <div class="trust-badge" role="note">
+              <div class="trust-dot" aria-hidden="true"></div><span>Government of India · Ministry of Commerce &amp;
+                Industry</span>
+            </div>
+            <p class="hero-eyebrow">National Accreditation Board for Certification Bodies</p>
+            <h1 id="hero-title">India's Premier<br><span class="gradient-text">Accreditation Authority</span></h1>
+            <p class="hero-desc">NABCB provides world-class accreditation to Inspection, Certification and Validation
+              &amp; Verification Bodies — internationally recognized by IAF, ILAC, and APAC.</p>
+            <div class="hero-ctas">
+              <a href="https://nabcb.qci.org.in/how-to-get-nabcb-accreditation" class="btn-primary"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                  <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg>Apply for Accreditation</a>
+              <a href="https://nabcb.qci.org.in/search-accredited-bodies/" class="btn-ghost"><svg viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>Search Accredited Bodies</a>
+            </div>
+            <div class="hero-provides" aria-label="NABCB provides accreditation for">
+              <p class="provides-title">NABCB provides accreditation for</p>
+              <div class="provides-list">
+                <a href="https://nabcb.qci.org.in/pcb/" class="provides-item"><svg viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M12 2l3 6.5h7l-5.5 4 2 6.5L12 15l-6.5 4 2-6.5L2 8.5h7z" />
+                  </svg>Product Certification Bodies — ISO/IEC 17065:2012</a>
+                <a href="https://nabcb.qci.org.in/prcb/" class="provides-item"><svg viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>Personnel Certification Bodies — ISO/IEC 17024:2012</a>
+                <a href="https://nabcb.qci.org.in/inspection-bodies/" class="provides-item"><svg viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M9 11l3 3L22 4" />
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                  </svg>Inspection Bodies — ISO/IEC 17020:2012</a>
+                <a href="https://nabcb.qci.org.in/validation-verification/" class="provides-item"><svg
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>Validation &amp; Verification Bodies — ISO/IEC 17029:2019</a>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="hero-photo-frame" id="heroSlider">
+              <div class="hero-slide active"><img src="src/images/slider-1.jpg" alt="" loading="eager"></div>
+              <div class="hero-slide"><img src="src/images/slider-2.jpg" alt="" loading="lazy"></div>
+              <div class="hero-slide"><img src="src/images/slider-3.jpg" alt="" loading="lazy"></div>
+              <div class="hero-slide"><img src="src/images/slider-4.jpg" alt="" loading="lazy"></div>
+              <div class="hero-slide"><img src="src/images/slider-5.jpg" alt="" loading="lazy"></div>
+              <div class="hero-photo-caption"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>NABCB at APAC &amp; IAF-ILAC Annual Meetings 2025</div>
+              <div class="hero-slide-dots">
+                <span class="hero-slide-dot active"></span><span class="hero-slide-dot"></span><span
+                  class="hero-slide-dot"></span><span class="hero-slide-dot"></span><span class="hero-slide-dot"></span>
+              </div>
+            </div>
+            <div class="stat-float-cards">
+              <div class="stat-float-card">
+                <div class="stat-float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                    <rect x="14" y="14" width="7" height="7" rx="1" />
+                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                  </svg></div>
+                <div class="stat-float-num">30+</div>
+                <div class="stat-float-label">Accreditation Schemes</div>
+              </div>
+              <div class="stat-float-card">
+                <div class="stat-float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg></div>
+                <div class="stat-float-num">300+</div>
+                <div class="stat-float-label">Accredited Bodies</div>
+              </div>
+              <div class="stat-float-card">
+                <div class="stat-float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                  </svg></div>
+                <div class="stat-float-num">25,000+</div>
+                <div class="stat-float-label">Active Certificates</div>
+              </div>
+              <div class="stat-float-card">
+                <div class="stat-float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg></div>
+                <div class="stat-float-num">15+</div>
+                <div class="stat-float-label">Countries</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNER LOGOS BAR -->
+    <div class="partners-bar" aria-label="Scheme owners and regulators">
+      <div class="container">
+        <span class="partners-label">Recognized by</span>
+        <div class="partners-divider" aria-hidden="true"></div>
+        <div class="partners-scroll">
+          <div class="partners-track" aria-hidden="true">
+            <span class="partner-chip"><img src="src/images/logos/globalgap.png" alt="GLOBALG.A.P"></span><span
+              class="partner-chip"><img src="src/images/logos/fssc22000.png" alt="FSSC 22000"></span><span
+              class="partner-chip"><img src="src/images/logos/fssc24000.png" alt="FSSC 24000"></span><span
+              class="partner-chip"><img src="src/images/logos/seri.png" alt="SERI"></span><span
+              class="partner-chip"><img src="src/images/logos/pngrb.png" alt="PNGRB"></span><span
+              class="partner-chip"><img src="src/images/logos/pefc.png" alt="PEFC"></span><span
+              class="partner-chip"><img src="src/images/logos/famiqs.png" alt="FAMI-QS"></span><span
+              class="partner-chip"><img src="src/images/logos/apeda.png" alt="APEDA"></span><span
+              class="partner-chip"><img src="src/images/logos/fssai.png" alt="FSSAI"></span><span
+              class="partner-chip"><img src="src/images/logos/bis.png" alt="BIS"></span><span class="partner-chip"><img
+                src="src/images/logos/drdo.png" alt="DRDO"></span>
+            <span class="partner-chip"><img src="src/images/logos/globalgap.png" alt="GLOBALG.A.P"></span><span
+              class="partner-chip"><img src="src/images/logos/fssc22000.png" alt="FSSC 22000"></span><span
+              class="partner-chip"><img src="src/images/logos/fssc24000.png" alt="FSSC 24000"></span><span
+              class="partner-chip"><img src="src/images/logos/seri.png" alt="SERI"></span><span
+              class="partner-chip"><img src="src/images/logos/pngrb.png" alt="PNGRB"></span><span
+              class="partner-chip"><img src="src/images/logos/pefc.png" alt="PEFC"></span><span
+              class="partner-chip"><img src="src/images/logos/famiqs.png" alt="FAMI-QS"></span><span
+              class="partner-chip"><img src="src/images/logos/apeda.png" alt="APEDA"></span><span
+              class="partner-chip"><img src="src/images/logos/fssai.png" alt="FSSAI"></span><span
+              class="partner-chip"><img src="src/images/logos/bis.png" alt="BIS"></span><span class="partner-chip"><img
+                src="src/images/logos/drdo.png" alt="DRDO"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-text-col reveal">
+            <div class="section-eyebrow">Who We Are</div>
+            <h2 class="section-title" id="about-title">About NABCB</h2>
+            <p class="about-desc">The National Accreditation Board for Certification Bodies (NABCB) provides
+              accreditation to Inspection, Certification and Validation &amp; Verification Bodies based on assessment of
+              their competence as per the Board's criteria and in accordance with International Standards and
+              Guidelines.</p>
+            <p class="about-desc">NABCB is a Constituent Board of Quality Council of India, set up by the Ministry of
+              Commerce and Industry. It operates as an autonomous body ensuring India's conformity assessment ecosystem
+              meets global standards.</p>
+            <div class="intl-badges"><span class="intl-badge">IAF Full Member</span><span class="intl-badge">ILAC
+                Member</span><span class="intl-badge">APAC Member</span><span class="intl-badge">MLA / MRA
+                Signatory</span></div>
+            <a href="https://nabcb.qci.org.in/about-nabcb" class="btn-outline">Read More About NABCB<svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></a>
+          </div>
+          <div class="reveal" style="transition-delay:.15s">
+            <div class="about-visual-card">
+              <h3>International Recognition</h3>
+              <div class="member-entries">
+                <div class="member-entry">
+                  <div class="member-entry-dot" style="background:#00C2FF"></div>
+                  <div>
+                    <div class="member-entry-text">International Accreditation Forum (IAF)</div>
+                    <div class="member-entry-sub">Full Member &amp; MLA Signatory</div>
+                  </div>
+                </div>
+                <div class="member-entry">
+                  <div class="member-entry-dot" style="background:#0FA958"></div>
+                  <div>
+                    <div class="member-entry-text">International Laboratory Accreditation Cooperation (ILAC)</div>
+                    <div class="member-entry-sub">MRA Signatory</div>
+                  </div>
+                </div>
+                <div class="member-entry">
+                  <div class="member-entry-dot" style="background:#F59E0B"></div>
+                  <div>
+                    <div class="member-entry-text">Asia Pacific Accreditation Cooperation (APAC)</div>
+                    <div class="member-entry-sub">Full Member</div>
+                  </div>
+                </div>
+              </div>
+              <div class="about-mini-stats">
+                <div class="about-mini-stat">
+                  <div class="about-mini-num">30+</div>
+                  <div class="about-mini-label">Schemes</div>
+                </div>
+                <div class="about-mini-stat">
+                  <div class="about-mini-num">300+</div>
+                  <div class="about-mini-label">Bodies</div>
+                </div>
+                <div class="about-mini-stat">
+                  <div class="about-mini-num">15+</div>
+                  <div class="about-mini-label">Countries</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ========== UPDATED ACCREDITATION SCHEMES ========== -->
+    <section class="schemes-section" id="schemes" aria-labelledby="schemes-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">What We Accredit</div>
+          <h2 class="section-title" id="schemes-title">Accreditation Schemes</h2>
+          <p class="section-sub">Internationally recognized accreditation across five conformity assessment domains.</p>
+        </div>
+        <div class="schemes-grid" id="schemesGrid">
+          <a href="https://nabcb.qci.org.in/inspection-bodies" class="scheme-card reveal">
+            <div class="scheme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M9 11l3 3L22 4" />
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+              </svg></div>
+            <div class="scheme-name">Inspection Bodies</div>
+            <div class="scheme-std">ISO/IEC 17020:2012</div>
+            <p class="scheme-desc">Conformity assessment — Requirements for the operation of various types of bodies
+              performing inspection.</p>
+            <span class="scheme-more">More info <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></span>
+          </a>
+          <a href="https://nabcb.qci.org.in/management-system" class="scheme-card reveal" style="transition-delay:.05s">
+            <div class="scheme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+              </svg></div>
+            <div class="scheme-name">Management Systems</div>
+            <div class="scheme-std">ISO/IEC 17021-1:2015</div>
+            <p class="scheme-desc">Conformity assessment — Requirements for bodies providing audit and certification of
+              management systems.</p>
+            <span class="scheme-more">More info <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></span>
+          </a>
+          <a href="https://nabcb.qci.org.in/pcb" class="scheme-card reveal" style="transition-delay:.1s">
+            <div class="scheme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M12 2l3 6.5h7l-5.5 4 2 6.5L12 15l-6.5 4 2-6.5L2 8.5h7z" />
+              </svg></div>
+            <div class="scheme-name">Product / Process</div>
+            <div class="scheme-std">ISO/IEC 17065:2012</div>
+            <p class="scheme-desc">Conformity assessment — Requirements for bodies certifying products, processes and
+              services.</p>
+            <span class="scheme-more">More info <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></span>
+          </a>
+          <!-- Hidden cards -->
+          <div class="hidden-cards" id="hiddenCards">
+            <a href="https://nabcb.qci.org.in/prcb" class="scheme-card reveal" style="transition-delay:.15s">
+              <div class="scheme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg></div>
+              <div class="scheme-name">Certification of Persons</div>
+              <div class="scheme-std">ISO/IEC 17024:2012</div>
+              <p class="scheme-desc">Conformity assessment — General requirements for bodies operating certification of
+                persons.</p>
+              <span class="scheme-more">More info <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.5" stroke-linecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></span>
+            </a>
+            <a href="https://nabcb.qci.org.in/validation-verification" class="scheme-card reveal"
+              style="transition-delay:.2s">
+              <div class="scheme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg></div>
+              <div class="scheme-name">Validation &amp; Verification</div>
+              <div class="scheme-std">ISO/IEC 17029:2019</div>
+              <p class="scheme-desc">Conformity assessment — General principles and requirements for validation and
+                verification bodies.</p>
+              <span class="scheme-more">More info <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.5" stroke-linecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></span>
+            </a>
+            <a href="https://nabcb.qci.org.in/accreditation-fee/" class="scheme-card fee-card reveal"
+              style="transition-delay:.25s">
+              <div class="scheme-icon" style="background:rgba(0,86,166,.1)"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <rect x="2" y="5" width="20" height="14" rx="2" />
+                  <line x1="2" y1="10" x2="22" y2="10" />
+                </svg></div>
+              <div class="scheme-name">Accreditation Fee</div>
+              <div class="scheme-std">Fee Schedule</div>
+              <p class="scheme-desc">Detailed fee structure for all accreditation schemes and assessment services
+                offered by NABCB.</p>
+              <span class="scheme-more">View Fee Schedule <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.5" stroke-linecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></span>
+            </a>
+          </div>
+        </div>
+        <div class="view-all-row">
+          <button class="btn-view-all" id="viewAllBtn" onclick="toggleSchemes()">
+            <svg id="schemesBtnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+            <span id="schemesBtnText">View All Schemes</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ========== UPDATED LEADERSHIP SECTION ========== -->
+    <section class="section section-bg-white" id="leadership" aria-labelledby="leadership-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Our Leadership</div>
+          <h2 class="section-title" id="leadership-title">Board Leadership</h2>
+          <p class="section-sub">NABCB is guided by distinguished leaders committed to quality and accreditation
+            excellence.</p>
+        </div>
+        <div class="leadership-grid-new">
+          <!-- Leader 1 -->
+          <div class="leader-card-new reveal">
+            <div class="leader-card-top blue-grad">
+              <div class="leader-badge-new">Chairperson</div>
+              <div class="leader-avatar-wrap-new">
+                <div class="leader-avatar-new"><img src="src/images/chairman-hd.jpg" alt="Dr. Ravi P Singh"></div>
+              </div>
+            </div>
+            <div class="leader-card-body-new">
+              <div class="leader-name-new">Dr. Ravi P Singh</div>
+              <div class="leader-role-new">Chairperson, NABCB</div>
+              <p class="leader-desc-new">Provides strategic direction and oversight to India's premier accreditation
+                body, ensuring global alignment with IAF, ILAC, and APAC frameworks.</p>
+              <div class="leader-links-new">
+                <a href="https://nabcb.qci.org.in/our-leadership/" class="leader-link-new"><svg viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>View Profile</a>
+              </div>
+            </div>
+            <div class="leader-stats-strip">
+              <div class="leader-stat-item">
+                <div class="leader-stat-num">30+</div>
+                <div class="leader-stat-label">Schemes led</div>
+              </div>
+              <div class="leader-stat-item">
+                <div class="leader-stat-num">IAF</div>
+                <div class="leader-stat-label">MLA Signatory</div>
+              </div>
+              <div class="leader-stat-item">
+                <div class="leader-stat-num">APAC</div>
+                <div class="leader-stat-label">Full Member</div>
+              </div>
+            </div>
+          </div>
+          <!-- Leader 2 -->
+          <div class="leader-card-new reveal" style="transition-delay:.1s">
+            <div class="leader-card-top navy-grad">
+              <div class="leader-badge-new">Chief Executive</div>
+              <div class="leader-avatar-wrap-new">
+                <div class="leader-avatar-new"><img src="src/images/ceo-hd.jpg" alt="Mr. N. Venkateswaran"></div>
+              </div>
+            </div>
+            <div class="leader-card-body-new">
+              <div class="leader-name-new">Mr. N. Venkateswaran</div>
+              <div class="leader-role-new">Chief Executive Officer</div>
+              <p class="leader-desc-new">Leads NABCB's operations, accreditation programs, and international engagements
+                — driving India's conformity assessment ecosystem to world-class standards.</p>
+              <div class="leader-links-new">
+                <a href="https://nabcb.qci.org.in/our-leadership/" class="leader-link-new"><svg viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>View Profile</a>
+                <a href="https://nabcb.qci.org.in/secretariat/" class="leader-link-new"><svg viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  </svg>Secretariat</a>
+              </div>
+            </div>
+            <div class="leader-stats-strip">
+              <div class="leader-stat-item">
+                <div class="leader-stat-num">300+</div>
+                <div class="leader-stat-label">Bodies accredited</div>
+              </div>
+              <div class="leader-stat-item">
+                <div class="leader-stat-num">ILAC</div>
+                <div class="leader-stat-label">MRA Partner</div>
+              </div>
+              <div class="leader-stat-item">
+                <div class="leader-stat-num">15+</div>
+                <div class="leader-stat-label">Countries</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Team teaser -->
+        <div class="team-teaser-new reveal" style="transition-delay:.2s">
+          <div class="team-avatars">
+            <div class="team-avatar-chip">BC</div>
+            <div class="team-avatar-chip">SM</div>
+            <div class="team-avatar-chip">RK</div>
+            <div class="team-avatar-chip">PJ</div>
+            <div class="team-avatar-chip more">+12</div>
+          </div>
+          <div class="team-text">
+            <h4>Meet the full board</h4>
+            <p>16 distinguished members guiding India's accreditation excellence</p>
+          </div>
+          <a href="https://nabcb.qci.org.in/board-composition/" class="btn-team">View Board Composition<svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- LATEST UPDATES -->
+    <section class="section updates-section" id="updates" aria-labelledby="updates-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Stay Informed</div>
+          <h2 class="section-title" id="updates-title">Latest Updates</h2>
+          <p class="section-sub">News, events, and important announcements from NABCB.</p>
+        </div>
+        <div class="tabs-nav" role="tablist" aria-label="Updates categories">
+          <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-news" id="btn-news"
+            onclick="switchTab('news',this)">News &amp; Updates</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-events" id="btn-events"
+            onclick="switchTab('events',this)">Events</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-ann" id="btn-ann"
+            onclick="switchTab('ann',this)">Announcements</button>
+        </div>
+        <div id="tab-news" class="tab-panel active" role="tabpanel" aria-labelledby="btn-news">
+          <a href="https://nabcb.qci.org.in/advisories/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">Feb</div>
+              <div class="update-date-day">11</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-advisory">Advisory</span>
+              <div class="update-title">NABCB Advisory to Govt. Bodies, Regulators, PSUs, Corporates, Industry, GVCs,
+                MSMEs to prescribe National Accreditation</div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+          <a href="https://nabcb.qci.org.in/nabcb-updates/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">Dec</div>
+              <div class="update-date-day">18</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-news">News</span>
+              <div class="update-title">IAF/ILAC Joint Annual Meeting — NABCB delegation participation and outcomes from
+                the international forum</div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+          <a href="https://nabcb.qci.org.in/news-2/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">Nov</div>
+              <div class="update-date-day">06</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-news">News</span>
+              <div class="update-title">Quality Bharat Pledge Campaign — National Quality Conclave 2024 highlights and
+                key takeaways</div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+          <a href="https://nabcb.qci.org.in/nabcb-updates/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">Oct</div>
+              <div class="update-date-day">22</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-news">News</span>
+              <div class="update-title">NABCB participates in APAC Annual General Assembly — strengthening Asia Pacific
+                accreditation cooperation</div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+        </div>
+        <div id="tab-events" class="tab-panel" role="tabpanel" aria-labelledby="btn-events">
+          <a href="https://nabcb.qci.org.in/events-3/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">2025</div>
+              <div class="update-date-day" style="font-size:14px">TBD</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-event">Event</span>
+              <div class="update-title">NABCB Assessor Training Programme — upcoming schedule and registration details
+              </div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+          <a href="https://nabcb.qci.org.in/events-3/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">2024</div>
+              <div class="update-date-day" style="font-size:14px">Oct</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-event">Event</span>
+              <div class="update-title">APAC Annual General Assembly — India delegation and technical committee meetings
+              </div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+        </div>
+        <div id="tab-ann" class="tab-panel" role="tabpanel" aria-labelledby="btn-ann">
+          <a href="https://nabcb.qci.org.in/suspended-bodies/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">2025</div>
+              <div class="update-date-day" style="font-size:12px">Latest</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-alert">Alert</span>
+              <div class="update-title">Suspended Bodies list updated — verify accreditation status before engagement
+                with any certification body</div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+          <a href="https://nabcb.qci.org.in/accreditations-withdrawn/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">2025</div>
+              <div class="update-date-day" style="font-size:12px">Latest</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-alert">Alert</span>
+              <div class="update-title">Accreditations withdrawn — updated list of certification bodies whose
+                accreditation has been withdrawn</div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+          <a href="https://nabcb.qci.org.in/announcement/" class="update-item">
+            <div class="update-date-block">
+              <div class="update-date-month">2024</div>
+              <div class="update-date-day" style="font-size:12px">Dec</div>
+            </div>
+            <div class="update-divider"></div>
+            <div class="update-body"><span class="update-tag tag-advisory">Announcement</span>
+              <div class="update-title">Policy updates for Management System Certification Bodies — new requirements
+                effective from Q1 2025</div>
+            </div>
+            <div class="update-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></div>
+          </a>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+          <a href="https://nabcb.qci.org.in/news-2/" class="btn-blue">View All News</a>
+          <a href="https://nabcb.qci.org.in/announcement/" class="btn-outline">All Announcements</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- DIRECTORY -->
+    <section class="section dir-section" id="directory" aria-labelledby="dir-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Search &amp; Verify</div>
+          <h2 class="section-title" id="dir-title">Accreditation Directory</h2>
+          <p class="section-sub">Search and verify accredited bodies, check suspension and withdrawal status, and access
+            IAF CertSearch.</p>
+        </div>
+        <div class="dir-hero-card reveal">
+          <div class="dir-hero-inner">
+            <h3>Find Accredited Bodies</h3>
+            <p>Search our comprehensive directory of accredited certification, inspection and validation bodies across
+              India and 15+ countries.</p>
+            <div class="dir-links-grid">
+              <a href="https://nabcb.qci.org.in/search-accredited-bodies/" class="dir-link-item"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>Search Accredited Bodies<span class="dir-link-sub">Find certified organizations</span></a>
+              <a href="https://nabcb.qci.org.in/accreditations-withdrawn/" class="dir-link-item"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>Accreditations Withdrawn<span class="dir-link-sub">Check withdrawal status</span></a>
+              <a href="https://nabcb.qci.org.in/iaf/" class="dir-link-item"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>IAF CertSearch<span class="dir-link-sub">Global certificate search</span></a>
+              <a href="https://nabcb.qci.org.in/suspended-bodies/" class="dir-link-item"><svg viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                </svg>Suspended Bodies<span class="dir-link-sub">Verify suspension status</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- PUBLICATIONS -->
+    <section class="section section-bg-white" id="publications" aria-labelledby="pub-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Resources</div>
+          <h2 class="section-title" id="pub-title">Publications &amp; Documents</h2>
+          <p class="section-sub">Access scheme documents, policies, advisories and other important publications from
+            NABCB.</p>
+        </div>
+        <div class="publications-grid">
+          <a href="https://nabcb.qci.org.in/scheme-documents/" class="pub-card reveal">
+            <div class="pub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg></div>
+            <div>
+              <div class="pub-title">Scheme Documents</div>
+              <p class="pub-desc">Technical requirements, application forms and assessment criteria for all NABCB
+                accreditation schemes.</p><span class="pub-link">Browse Documents <svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></span>
+            </div>
+          </a>
+          <a href="https://nabcb.qci.org.in/policies/" class="pub-card reveal" style="transition-delay:.08s">
+            <div class="pub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7z" />
+              </svg></div>
+            <div>
+              <div class="pub-title">Policies</div>
+              <p class="pub-desc">Official NABCB policies governing accreditation, impartiality, complaints and appeals
+                procedures.</p><span class="pub-link">View Policies <svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></span>
+            </div>
+          </a>
+          <a href="https://nabcb.qci.org.in/formats-for-nabcb-assessors/" class="pub-card reveal"
+            style="transition-delay:.16s">
+            <div class="pub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+              </svg></div>
+            <div>
+              <div class="pub-title">Other Documents</div>
+              <p class="pub-desc">Formats, checklists and guidance documents for NABCB assessors and conformity
+                assessment bodies.</p><span class="pub-link">Access Documents <svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></span>
+            </div>
+          </a>
+          <a href="https://nabcb.qci.org.in/advisories/" class="pub-card reveal" style="transition-delay:.24s">
+            <div class="pub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg></div>
+            <div>
+              <div class="pub-title">Advisories</div>
+              <p class="pub-desc">Important advisories and circulars issued by NABCB to accredited bodies and
+                stakeholders.</p><span class="pub-link">Read Advisories <svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- CONTACT -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Get in Touch</div>
+          <h2 class="section-title" id="contact-title">Contact NABCB</h2>
+          <p class="section-sub">Reach out to us for accreditation queries, public forum, or any assistance.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card reveal">
+            <div class="contact-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg></div>
+            <div>
+              <div class="contact-label">Address</div>
+              <div class="contact-value">World Trade Centre, J 200, Block J,<br>Nauroji Nagar, New Delhi – 110029</div>
+            </div>
+          </div>
+          <div class="contact-card reveal" style="transition-delay:.06s">
+            <div class="contact-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.19h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z" />
+              </svg></div>
+            <div>
+              <div class="contact-label">Phone</div>
+              <div class="contact-value"><a href="tel:01126186680">011 – 26186680</a></div>
+            </div>
+          </div>
+          <div class="contact-card reveal" style="transition-delay:.12s">
+            <div class="contact-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg></div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-value"><a href="mailto:contact.nabcb@qcin.org">contact.nabcb@qcin.org</a></div>
+            </div>
+          </div>
+          <div class="contact-card reveal" style="transition-delay:.18s">
+            <div class="contact-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg></div>
+            <div>
+              <div class="contact-label">Connect Online</div>
+              <div class="contact-value"><a href="https://qualitysetu.qcin.org/">Quality Setu</a> · <a
+                  href="https://nabcb.qci.org.in/contact-us/">Connect With Us</a> · <a
+                  href="https://nabcb.qci.org.in/public-forum/">Public Forum</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="online-support-row reveal" style="margin-top:8px;transition-delay:.24s">
+          <a href="https://nabcb.qci.org.in/contact-us/" class="support-chip"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.19h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z" />
+            </svg>Raise a Query</a>
+          <a href="https://qualitysetu.qcin.org/" class="support-chip"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>Chat with Quality Setu</a>
+          <a href="https://nabcb.qci.org.in/faq/" class="support-chip"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>Frequently Asked Questions</a>
+          <a href="https://nabcb.qci.org.in/public-forum/" class="support-chip"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>Public Forum</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round">
+                <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7z" />
+                <path d="M9 12l2 2 4-4" />
+              </svg></div>
+            <div>
+              <div class="footer-logo-name">NABCB</div>
+              <div class="footer-logo-sub">Quality Council of India</div>
+            </div>
+          </div>
+          <p class="footer-desc">National Accreditation Board for Certification Bodies — India's internationally
+            recognized accreditation authority, set up under Ministry of Commerce &amp; Industry.</p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/nabcb/" class="social-link" target="_blank" rel="noopener"
+              aria-label="NABCB Facebook"><svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg></a>
+            <a href="https://twitter.com/NABCB_QCI" class="social-link" target="_blank" rel="noopener"
+              aria-label="NABCB Twitter / X"><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg></a>
+            <a href="https://www.linkedin.com/company/nabcb/" class="social-link" target="_blank" rel="noopener"
+              aria-label="NABCB LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Quick Links</h3>
+          <ul class="footer-links-list">
+            <li><a href="https://nabcb.qci.org.in/about-nabcb/">About NABCB</a></li>
+            <li><a href="https://nabcb.qci.org.in/how-to-get-nabcb-accreditation">Accreditation Process</a></li>
+            <li><a href="https://nabcb.qci.org.in/benefits-of-accreditation/">Benefits of Accreditation</a></li>
+            <li><a href="https://nabcb.qci.org.in/international-recognition/">International Recognition</a></li>
+            <li><a href="https://nabcb.qci.org.in/recognition/">Scheme Owners &amp; Regulators</a></li>
+            <li><a href="https://nabcb.qci.org.in/our-leadership/">Our Leadership</a></li>
+            <li><a href="https://nabcb.qci.org.in/faq/">FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Publications</h3>
+          <ul class="footer-links-list">
+            <li><a href="https://nabcb.qci.org.in/scheme-documents/">Scheme Documents</a></li>
+            <li><a href="https://nabcb.qci.org.in/policies/">Policies</a></li>
+            <li><a href="https://nabcb.qci.org.in/formats-for-nabcb-assessors/">Other Documents</a></li>
+            <li><a href="https://nabcb.qci.org.in/advisories/">Advisories</a></li>
+            <li><a href="https://nabcb.qci.org.in/nabcb-brochure/">NABCB Brochure</a></li>
+            <li><a href="https://nabcb.qci.org.in/gallery/">Gallery</a></li>
+            <li><a href="https://nabcb.qci.org.in/nabcb-updates/">NABCB Updates</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Important Links</h3>
+          <ul class="footer-links-list">
+            <li><a href="https://nabcbportal.qci.org.in" target="_blank" rel="noopener">CAB Portal Login</a></li>
+            <li><a href="https://qualitysetu.qcin.org/" target="_blank" rel="noopener">Quality Setu</a></li>
+            <li><a href="https://qcin.org/" target="_blank" rel="noopener">Quality Council of India</a></li>
+            <li><a href="https://dpiit.gov.in/" target="_blank" rel="noopener">Ministry of Commerce</a></li>
+            <li><a href="https://iaf.nu/" target="_blank" rel="noopener">IAF</a></li>
+            <li><a href="https://ilac.org/" target="_blank" rel="noopener">ILAC</a></li>
+            <li><a href="https://www.apac-accreditation.org/" target="_blank" rel="noopener">APAC</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 NABCB – National Accreditation Board for Certification Bodies. A Constituent
+          Board of Quality Council of India.</p>
+        <div class="footer-gov-badges"><span class="gov-badge">Govt. of India</span><span class="gov-badge">ISO
+            17011</span><span class="gov-badge">IAF MLA</span><span class="gov-badge">ILAC MRA</span></div>
+        <div class="footer-meta-links"><a href="https://nabcb.qci.org.in/disclaimer/">Disclaimer</a><a
+            href="https://nabcb.qci.org.in/privacy-policy/">Privacy Policy</a><a
+            href="https://nabcb.qci.org.in/useful-links/">Useful Links</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('neural-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, pts = [], raf;
+      function resize() {
+        W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight;
+        const count = Math.min(60, Math.floor(W / 28)); pts = [];
+        for (let i = 0; i < count; i++)pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: 1.2 + Math.random() * 1.2 });
+      }
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (let i = 0; i < pts.length; i++) { for (let j = i + 1; j < pts.length; j++) { const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy); if (d < 130) { ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.strokeStyle = `rgba(0,86,166,${.18 * (1 - d / 130)})`; ctx.lineWidth = .6; ctx.stroke(); } } }
+        pts.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0,120,220,.22)'; ctx.fill(); });
+        raf = requestAnimationFrame(draw);
+      }
+      window.addEventListener('resize', resize); resize(); draw();
+      document.addEventListener('visibilitychange', () => { if (document.hidden) { cancelAnimationFrame(raf); } else { draw(); } });
+    })();
+
+    (function () {
+      const root = document.getElementById('heroSlider');
+      if (!root) return;
+      const slides = root.querySelectorAll('.hero-slide');
+      const dots = root.querySelectorAll('.hero-slide-dot');
+      let i = 0, timer;
+      function show(n) {
+        slides[i].classList.remove('active'); dots[i].classList.remove('active');
+        i = n % slides.length;
+        slides[i].classList.add('active'); dots[i].classList.add('active');
+      }
+      function next() { show(i + 1); }
+      function start() { timer = setInterval(next, 4200); }
+      function stop() { clearInterval(timer); }
+      dots.forEach((d, idx) => d.addEventListener('click', () => { show(idx); stop(); start(); }));
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+      start();
+    })();
+
+    (function () {
+      const header = document.getElementById('mainHeader');
+      window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 10); }, { passive: true });
+    })();
+
+    (function () {
+      const btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 300); }, { passive: true });
+    })();
+
+    (function () {
+      const observer = new IntersectionObserver(entries => { entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('visible'); observer.unobserve(el.target); } }); }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    })();
+
+    function switchTab(id, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    }
+
+    function toggleSchemes() {
+      const hidden = document.getElementById('hiddenCards');
+      const text = document.getElementById('schemesBtnText');
+      const icon = document.getElementById('schemesBtnIcon');
+      const isOpen = hidden.classList.contains('visible');
+      if (isOpen) {
+        hidden.classList.remove('visible');
+        text.textContent = 'View All Schemes';
+        icon.querySelector('polyline').setAttribute('points', '6 9 12 15 18 9');
+      } else {
+        hidden.classList.add('visible');
+        text.textContent = 'Show Less';
+        icon.querySelector('polyline').setAttribute('points', '18 15 12 9 6 15');
+      }
+    }
+
+    document.querySelectorAll('.nav-link').forEach(btn => {
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); const expanded = btn.getAttribute('aria-expanded') === 'true'; btn.setAttribute('aria-expanded', !expanded); }
+      });
+    });
+
+    (function () {
+      const ham = document.getElementById('hamburger');
+      const nav = document.querySelector('.nav');
+      let open = false;
+      ham.addEventListener('click', () => {
+        open = !open; ham.setAttribute('aria-expanded', open);
+        nav.style.display = open ? 'flex' : ''; nav.style.flexDirection = open ? 'column' : '';
+        nav.style.position = open ? 'absolute' : ''; nav.style.top = open ? '64px' : '';
+        nav.style.left = open ? '0' : ''; nav.style.right = open ? '0' : '';
+        nav.style.background = open ? '#fff' : ''; nav.style.padding = open ? '12px 20px 20px' : '';
+        nav.style.borderBottom = open ? '1px solid rgba(15,23,42,.08)' : '';
+        nav.style.boxShadow = open ? '0 8px 24px rgba(15,23,42,.1)' : ''; nav.style.zIndex = open ? '250' : '';
+      });
+    })();
+  </script>
+</body>
+
+</html>
