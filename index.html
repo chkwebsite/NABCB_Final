@@ -155,6 +155,28 @@
       background: var(--teal-light) !important;
     }
 
+    .nav-links a.qci-nav-logo {
+      height: 50px;
+      padding: 4px 6px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-links a.qci-nav-logo:hover {
+      background: var(--white);
+    }
+
+    .qci-nav-logo img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
     /* BUTTONS */
     .btn-primary {
       background: var(--gold);
@@ -1785,6 +1807,10 @@
         <a href="#">Media Centre</a>
         <a href="#">Contact Us</a>
         <a href="#" class="nav-btn">Portal Login</a>
+        <a href="https://qcin.org/" class="qci-nav-logo" aria-label="Quality Council of India" target="_blank"
+          rel="noopener">
+          <img src="./src/images/qci-logo-1(1).png" alt="Quality Council of India">
+        </a>
       </div>
     </div>
   </nav>

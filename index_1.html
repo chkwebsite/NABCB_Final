@@ -397,6 +397,24 @@
       flex-shrink: 0;
     }
 
+    .qci-nav-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      padding: 4px 6px;
+      border-radius: var(--r8);
+      background: #fff;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .qci-nav-logo img {
+      width: auto;
+      height:40px;
+      object-fit: contain;
+    }
+
     .icon-btn {
       width: 34px;
       height: 34px;
@@ -2558,6 +2576,15 @@
         display: none;
       }
 
+      .qci-nav-logo {
+        height: 34px;
+        padding: 3px 5px;
+      }
+
+      .qci-nav-logo img {
+        height: 24px;
+      }
+
       .ann-actions {
         display: none;
       }
@@ -2856,6 +2883,10 @@
             <polyline points="10 17 15 12 10 7" />
             <line x1="15" y1="12" x2="3" y2="12" />
           </svg>Portal Login</a>
+        <a href="https://qcin.org/" class="qci-nav-logo" aria-label="Quality Council of India" target="_blank"
+          rel="noopener">
+          <img src="./src/images/qci-logo-1(1).png" alt="Quality Council of India">
+        </a>
         <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu"
           aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
